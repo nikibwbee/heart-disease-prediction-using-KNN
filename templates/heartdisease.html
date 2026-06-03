@@ -24,7 +24,7 @@
 
     </form>
 
-    <h2 id="Result"></h2>
+    <h2 id="result"></h2>
 
     <script>
         function predict() {
@@ -43,7 +43,7 @@
                 ExerciseAngina_Y: form.ExerciseAngina_Y.value
             };
 
-            fetch("/predict", {
+            fetch("https://heart-disease-prediction-using-knn.onrender.com/predict", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
