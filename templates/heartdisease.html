@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Disease Prediction</title>
+</head>
+
+<body>
+
+    <h1>Heart Disease Prediction</h1>
+    <form id="predictForm">
+
+        Age: <input type="number" name="Age"><br><br>
+        RestingBP: <input type="number" name="RestingBP"><br><br>
+        Cholesterol: <input type="number" name="Cholesterol"><br><br>
+        MaxHR: <input type="number" name="MaxHR"><br><br>
+        Oldpeak: <input type="number" step="0.1" name="Oldpeak"><br><br>
+
+        Sex_M: <input type="number" name="Sex_M"><br><br>
+        ChestPainType_ATA: <input type="number" name="ChestPainType_ATA"><br><br>
+        ST_Slope_Up: <input type="number" name="ST_Slope_Up"><br><br>
+        ExerciseAngina_Y: <input type="number" name="ExerciseAngina_Y"><br><br>
+
+        <button type="button" onclick="predict()">Predict</button>
+
+    </form>
+
+    <h2 id="Result"></h2>
+
+    <script>
+        function predict() {
+
+            let form = document.getElementById("predictForm");
+
+            let data = {
+                Age: form.Age.value,
+                RestingBP: form.RestingBP.value,
+                Cholesterol: form.Cholesterol.value,
+                MaxHR: form.MaxHR.value,
+                Oldpeak: form.Oldpeak.value,
+                Sex_M: form.Sex_M.value,
+                ChestPainType_ATA: form.ChestPainType_ATA.value,
+                ST_Slope_Up: form.ST_Slope_Up.value,
+                ExerciseAngina_Y: form.ExerciseAngina_Y.value
+            };
+
+            fetch("/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML =
+                    "Prediction: " + data.prediction;
+            });
+
+        }
+    </script>
+
+</body>
+</html>
