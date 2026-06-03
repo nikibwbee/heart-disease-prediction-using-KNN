@@ -29,12 +29,18 @@ def predict():
     df_scaled = scaler.transform(df)
 
     # prediction
-    prediction = model.predict(df_scaled)
+    prediction = model.predict(df_scaled)[0]
+
+    # convert into human-readable message
+    if prediction == 1:
+        result_text = "⚠️ High risk of heart disease"
+    else:
+        result_text = "✅ Low risk of heart disease"
 
     return jsonify({
-        "prediction": int(prediction[0])
+        "prediction": int(prediction),
+        "result_text": result_text
     })
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
